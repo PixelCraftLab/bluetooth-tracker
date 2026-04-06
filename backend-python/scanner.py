@@ -2,6 +2,29 @@ import asyncio
 import requests
 from bleak import BleakScanner
 
+import math
+import random
+
+
+device_angles = {}
+
+def get_position(address, distance):
+    if address not in device_angles:
+        device_angles[address] = random.uniform(0, 2 * math.pi)
+
+    angle = device_angles[address]
+    angle += 0.05
+    device_angles[address] = angle
+
+    x = distance * math.cos(angle)
+    y = distance * math.sin(angle)
+
+    return x, y
+
+
+
+
+
 SERVER_URL = "http://localhost:5000/data"
 
 
@@ -36,7 +59,12 @@ def detection_callback(device, advertisement_data):
     # print(f"{name} | Current RSSI: {rssi} | {movement}")
     distance = rssi_to_distance(rssi)
 
-    print(f"{name} | RSSI: {rssi} | Distance: {round(distance,2)} | {movement}")
+    distance = rssi_to_distance(rssi)
+    scaled_distance = distance * 100 
+
+    x, y = get_position(address, scaled_distance)
+
+    print(f"{name} | RSSI: {rssi} | Distance: {round(distance,2)} | {movement} | Pos: ({int(x)}, {int(y)})")
 
 
 async def main():
