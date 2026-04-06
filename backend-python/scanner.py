@@ -32,7 +32,7 @@ async def main():
     print("Scanning started...\n")
 
     await scanner.start()
-    await asyncio.sleep(5) 
+    await asyncio.sleep(10) 
     await scanner.stop()
 
 asyncio.run(main())
