@@ -58,8 +58,6 @@ def detection_callback(device, advertisement_data):
 
     # print(f"{name} | Current RSSI: {rssi} | {movement}")
     distance = rssi_to_distance(rssi)
-
-    distance = rssi_to_distance(rssi)
     scaled_distance = distance * 100 
 
     x, y = get_position(address, scaled_distance)
