@@ -25,7 +25,7 @@ def get_position(address, distance):
 
 
 
-SERVER_URL = "http://localhost:5000/data"
+
 
 
 def rssi_to_distance(rssi):
@@ -71,7 +71,7 @@ async def main():
     print("Scanning started...\n")
 
     await scanner.start()
-    await asyncio.sleep(10) 
+    await asyncio.sleep(5) 
     await scanner.stop()
 
 asyncio.run(main())
